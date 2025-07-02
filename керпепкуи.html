@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>ТКШНЫЕ ЗАРАЖЕННЫЕ</title>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --yellow: #ffa000;
+      --black: #212121;
+      --gray: #f5f5f5;
+    }
+
+    body {
+      margin: 0;
+      font-family: 'Roboto', sans-serif;
+      background-color: var(--gray);
+      color: var(--black);
+    }
+
+    header {
+      background-color: white;
+      padding: 20px 40px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .logo {
+      font-size: 1.5rem;
+      font-weight: bold;
+      color: var(--yellow);
+    }
+
+    .hero {
+      background-color: var(--yellow);
+      color: white;
+      padding: 100px 20px;
+      text-align: center;
+    }
+
+    .hero h1 {
+      font-size: 3rem;
+      margin-bottom: 20px;
+    }
+
+    .btn {
+      background-color: white;
+      color: var(--yellow);
+      padding: 15px 30px;
+      font-weight: bold;
+      border-radius: 6px;
+      border: none;
+      cursor: pointer;
+      font-size: 1rem;
+      transition: 0.3s;
+    }
+
+    .btn:hover {
+      background-color: #fff3e0;
+    }
+
+    .section {
+      padding: 60px 20px;
+      max-width: 900px;
+      margin: auto;
+    }
+
+    .chat-box {
+      background-color: white;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+      height: 300px;
+      overflow-y: auto;
+      margin-bottom: 20px;
+    }
+
+    .input-area {
+      display: flex;
+      gap: 10px;
+      margin-top: 10px;
+    }
+
+    .input-area input {
+      flex: 1;
+      padding: 10px;
+      border-radius: 5px;
+      border: 1px solid #ddd;
+    }
+
+    .input-area button {
+      background-color: var(--yellow);
+      color: white;
+      border: none;
+      border-radius: 5px;
+      padding: 10px 20px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+
+    .nick-box {
+      margin-bottom: 30px;
+    }
+
+    .nick-box input {
+      padding: 10px;
+      border-radius: 5px;
+      border: 1px solid #bbb;
+      width: 300px;
+      max-width: 90%;
+    }
+
+    .nick-box button {
+      margin-left: 10px;
+      background-color: var(--yellow);
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 5px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    footer {
+      text-align: center;
+      padding: 30px;
+      font-size: 0.9rem;
+      color: #666;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="logo">ТКШНЫЕ</div>
+  </header>
+
+  <section class="hero">
+    <h1>ТКШНЫЕ ЗАРАЖЕННЫЕ</h1>
+    <p>Общайся с другими заражёнными в реальном времени</p>
+    <button class="btn" onclick="scrollToChat()">Войти в чат</button>
+  </section>
+
+  <section class="section" id="chat">
+    <h2>🔥 Онлайн Чат</h2>
+
+    <div class="nick-box" id="nickBox">
+      <input id="nicknameInput" placeholder="Введите ник...">
+      <button onclick="setNickname()">Войти</button>
+    </div>
+
+    <div class="chat-box" id="chatBox">
+      <p><i>Выберите ник, чтобы начать общение...</i></p>
+    </div>
+
+    <div class="input-area">
+      <input id="msgInput" placeholder="Введите сообщение..." disabled>
+      <button onclick="sendMessage()" disabled id="sendBtn">Отправить</button>
+    </div>
+  </section>
+
+  <footer>
+    3EP0K AND OOGWAY — 2025
+  </footer>
+
+  <script>
+    let nickname = "";
+
+    function scrollToChat() {
+      document.getElementById("chat").scrollIntoView({ behavior: "smooth" });
+    }
+
+    function setNickname() {
+      const input = document.getElementById("nicknameInput").value.trim();
+      if (input.length < 2) {
+        alert("Ник должен быть хотя бы из 2 символов");
+        return;
+      }
+      nickname = input;
+      document.getElementById("nickBox").style.display = "none";
+      document.getElementById("msgInput").disabled = false;
+      document.getElementById("sendBtn").disabled = false;
+      addSystemMessage(`Вы вошли как "${nickname}"`);
+    }
+
+    function addSystemMessage(text) {
+      const box = document.getElementById("chatBox");
+      const p = document.createElement("p");
+      p.innerHTML = `<i>${text}</i>`;
+      box.appendChild(p);
+      box.scrollTop = box.scrollHeight;
+    }
+
+    function sendMessage() {
+      const box = document.getElementById("chatBox");
+      const msg = document.getElementById("msgInput").value.trim();
+      if (msg === "" || nickname === "") return;
+
+      const p = document.createElement("p");
+      p.innerHTML = `<strong>${nickname}:</strong> ${msg}`;
+      box.appendChild(p);
+      document.getElementById("msgInput").value = "";
+      box.scrollTop = box.scrollHeight;
+    }
+  </script>
+
+</body>
+</html>
